@@ -1,4 +1,4 @@
-FROM php:7.3-fpm
+FROM php:7.2-fpm
 
 LABEL version="0.1" \
   description="An image containing the swool loader"
@@ -8,13 +8,10 @@ RUN apt-get update && apt-get install -y \
   libjpeg62-turbo-dev \
   libpng-dev \
   libpq-dev \
-  libzip-dev zip unzip \
-  tar untar
+  libzip-dev zip unzip
 
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-  && docker-php-ext-install -j$(nproc) gd \
-  # Install the curl extension
-  && docker-php-ext-install curl \
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+   && docker-php-ext-install -j$(nproc) gd \
   # Install the openssl extension
   && docker-php-ext-install openssl \
    # Install the fileinfo extension
@@ -29,12 +26,12 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
 # Tokenizer PHP Extension is already installed
 # XML PHP Extension is already installed
 
-RUN pecl install -o -f redis; \
-  rm -rf /tmp/pear \
-  && docker-php-ext-enable redis
-
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-
-RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+#RUN pecl install -o -f redis; \
+#  rm -rf /tmp/pear \
+#  && docker-php-ext-enable redis
+#
+#COPY --from=composer /usr/bin/composer /usr/bin/composer
+#
+#RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 WORKDIR /etc/php
