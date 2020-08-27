@@ -7,13 +7,7 @@ PHP_EXT_DIR=`php -i | grep "extension_dir" | awk ' /php/  { print $3"/"}'`
 PHP_INI_PATH=`php -i | grep "php.ini"  | awk   -F ' => ' '$2 ~ /php.ini/  { print $2  }'`
 
 
-#is_php_install(){
-#    if [ $PHP_EXT_DIR ]; then
-#      echo "PHP  install"
-#    else
-#      echo "php no "
-#    fi
-#}
+
 #判断swool_loader是否加载
 php_swool_loader() {
   if
@@ -38,12 +32,4 @@ update_swoole_loader(){
 
 php_swool_loader
 
-#sudo sed -i '/;extension=swoole_loader.so/d' /usr/local/php/etc/php.ini && echo "extension=swoole_loader.so" >> /usr/local/php/etc/php.ini
-#sudo sed -i 's/;extension=swoole_loader.so/extension=swoole_loader.so' /usr/local/php/etc/php.ini
-# grep -wq ";extension=swoole_loader.so" /usr/local/php/etc/php.ini && echo 'yes' || echo 'no'
 
-# php -i | grep "php.ini"  | awk '/ini/'  -F ' => ' '{ print $2  }'
-#
-# php -i | grep "extension_dir" | awk ' /php/  { print $3"/"}'  && echo 'yes' || echo 'no'
-#
-#php -v | grep php && echo 1 || echo 2

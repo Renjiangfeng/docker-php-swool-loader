@@ -13,7 +13,9 @@ RUN apt-get update && apt-get install -y \
 
 COPY ./swoole_loader.so  /home
 # copy sh
-COPY ./loader.sh  /home
+#COPY ./loader.sh  /home
+COPY ./install_swoole_loader.sh  /home
+COPY ./encry.sh  /home
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
    && docker-php-ext-install -j$(nproc) gd
@@ -39,4 +41,4 @@ RUN  bash /home/loader.sh
 #
 #RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
-WORKDIR /etc/php
+WORKDIR /home
